@@ -35,8 +35,7 @@ while(is_running):
 
     print("Você quer jogar com 'O' ou 'X' ? Digite abaixo")
     player1_symbol = input().upper()
-    while(was_game_won):
-
+    while(not was_game_won):
        inform_turn()
 
        if(player1_symbol == "X"):
@@ -47,8 +46,18 @@ while(is_running):
        print("Digite a Posição desejada")
        player1_x_position = int(input())
        player1_y_position = int(input())
+
        if(player_turn==1):
           place_character(player1_symbol, player1_x_position, player1_y_position)
+            
+       else:
+         place_character(player2_symbol, player1_x_position, player1_y_position)
 
        print_table()
-     
+
+       #SWITCH TURN
+
+       if(player_turn == 1):
+          player_turn = 2
+       else:
+          player_turn = 1
