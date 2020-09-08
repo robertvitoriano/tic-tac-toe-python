@@ -40,7 +40,7 @@ def switch_turn():
 
       if(player_turn == 1):
           player_turn = 2
-      else:
+      elif(player_turn==2):
           player_turn = 1
 
 
@@ -58,19 +58,18 @@ while(is_running):
        else:
            player2_symbol = "X"
 
+
+
        print("Digite a Posição desejada")
        player1_x_position = int(input()) - 1
        player1_y_position = int(input()) - 1
 
        if(player_turn==1):
           place_character(player1_symbol, player1_x_position, player1_y_position)
-          
-
-            
+          player_turn = 2
        else:
-         place_character(player2_symbol, player1_x_position, player1_y_position)
-    switch_turn()
-
+          place_character(player2_symbol, player1_x_position, player1_y_position)
+          player_turn = 1
 
 
 
