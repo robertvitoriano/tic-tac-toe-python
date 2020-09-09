@@ -58,7 +58,7 @@ def check_victory():
         print("Jogador 1 ganhou")
         was_game_won = True
 
-    elif(position[0][0][1] == "O" and position[0][1][2] == "O" and position[0][2][1] == "O"     # linha 1
+    elif(position[0][0][1] == "O" and position[0][1][2] == "O" and position[0][2][1] == "O"   # linha 1
        or position[1][0][1] == "O" and position[1][1][2] == "O" and position[1][2][1] == "O"  # linha 2
        or position[2][0][1] == "O" and position[2][1][2] == "O" and position[2][2][1] == "O"  # linha 3
        or position[0][0][1] == "O" and position[1][0][1] == "O" and position[2][0][1] == "O"  # coluna 1
