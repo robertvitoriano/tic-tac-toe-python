@@ -4,7 +4,6 @@ player_turn = 1
 was_game_won = False
 current_character = None
 
-
 def print_table():
         print("   1   2   3")
         print("1 "+position[0][0]+position[0][1]+position[0][2])
