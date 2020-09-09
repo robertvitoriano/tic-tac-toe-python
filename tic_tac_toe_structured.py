@@ -11,20 +11,11 @@ def print_table():
         print("2 "+position[1][0]+position[1][1]+position[1][2])
         print("3 "+position[2][0]+position[2][1]+position[2][2])
 
-
 def inform_turn():
     if(player_turn == 1):
          print("Vez do jogador 1")
     else:
         print("Vez do jogador 2")
-
-
-def check_game_state():
-    if(was_game_won):
-        is_running = False
-    else:
-        is_running = True
-
 
 def place_character(char, x, y):
     if(position[x][y] == '|___|' or position[x][y] == '|   |'):
@@ -35,68 +26,73 @@ def place_character(char, x, y):
 
         position[x][y] = position[x][y][0] + char + position[x][y][2]
 
-
-def switch_turn(player_turn,current_character,x,y):
-
-      if(player_turn == 1):
-          place_character(player1_symbol, player1_x_position,
-                          player1_y_position)
-          player_turn = 2
-      else:
-          place_character(player2_symbol, player1_x_position,
-                          player1_y_position)
-          player_turn = 1
-
-def check_victory():
+def check_victory(symbol):
+    was_game_won = False
      #vitoria X
-    if(position[0][0][1] == "X" and position[0][1][2] == "X" and position[0][2][1] == "X"     # linha 1
-       or position[1][0][1] == "X" and position[1][1][2] == "X" and position[1][2][1] == "X"  # linha 2
-       or position[2][0][1] == "X" and position[2][1][2] == "X" and position[2][2][1] == "X"  # linha 3
-       or position[0][0][1] == "X" and position[1][0][1] == "X" and position[2][0][1] == "X"  # coluna 1
-       or position[0][1][2] == "X" and position[1][1][2] == "X" and position[2][1][2] == "X"  # coluna 2
-       or position[0][2][1] == "X" and position[1][2][2] == "X" and position[2][2][1] == "X"):# coluna 3
-        print("Jogador 1 ganhou")
-        was_game_won = True
-
-    elif(position[0][0][1] == "O" and position[0][1][2] == "O" and position[0][2][1] == "O"   # linha 1
-       or position[1][0][1] == "O" and position[1][1][2] == "O" and position[1][2][1] == "O"  # linha 2
-       or position[2][0][1] == "O" and position[2][1][2] == "O" and position[2][2][1] == "O"  # linha 3
-       or position[0][0][1] == "O" and position[1][0][1] == "O" and position[2][0][1] == "O"  # coluna 1
-       or position[0][1][2] == "O" and position[1][1][2] == "O" and position[2][1][2] == "O"  # coluna 2
-       or position[0][2][1] == "O" and position[1][2][2] == "O" and position[2][2][1] == "O"):# coluna 3
-          print("Jogador 1 ganhou")
+    if(position[0][0][1] == symbol and position[0][1][2] == symbol and position[0][2][1] == symbol        # linha 1
+       or position[1][0][1] == symbol and position[1][1][2] == symbol and position[1][2][1] == symbol     # linha 2
+       or position[2][0][1] == symbol and position[2][1][2] == symbol and position[2][2][1] == symbol     # linha 3
+       or position[0][0][1] == symbol and position[1][0][1] == symbol and position[2][0][1] == symbol     # coluna 1
+       or position[0][1][2] == symbol and position[1][1][2] == symbol and position[2][1][2] == symbol     # coluna 2
+       or position[0][2][1] == symbol and position[1][2][2] == symbol and position[2][2][1] == symbol     # coluna 3
+       or position[0][0][1] == symbol and position[1][1][2] == symbol and position[2][2][1] == symbol     # diagonal 2
+       or position[0][2][1] == symbol and position[1][1][2] == symbol and position[2][0][1]==  symbol ):  # diagonal 2
+          print(symbol +"  ganhou") 
           was_game_won = True
 
-while(is_running):
+    return  was_game_won 
 
+def clean_table():
+    position = [['___', '|___|', '___'], ['___', '|___|', '___'], ['   ', '|   |', '   ']]
+    return position
+
+
+
+while(is_running):
+     
     print("Você quer jogar com 'O' ou 'X' ? Digite abaixo")
-    player1_symbol = input().upper()
+    input_symbol = input().upper()
+    position = clean_table()
     while(not was_game_won):
-       print_table()
 
        inform_turn()
 
-       if(player1_symbol == "X"):
-           player2_symbol = "O"
-       else:
-           player2_symbol = "X"
-
-
+       print_table()
 
        print("Digite a Posição desejada")
-       player1_x_position = int(input()) - 1
-       player1_y_position = int(input()) - 1
+       x_position = int(input()) - 1
+       y_position = int(input()) - 1
 
        if(player_turn==1):
-          place_character(player1_symbol, player1_x_position, player1_y_position)
-          player_turn = 2
+           current_character = "X"
+           place_character(current_character, x_position, y_position)
+           was_game_won =  check_victory(current_character)
+           if(was_game_won):
+              print_table()
+           player_turn = 2
        else:
-          place_character(player2_symbol, player1_x_position, player1_y_position)
-          player_turn = 1
+           current_character = "O"
+           place_character(current_character, x_position, y_position)
+           was_game_won =  check_victory(current_character)
+           if(was_game_won):
+              print_table()
+           player_turn = 1
 
-       check_victory()
+    right_response = False
 
+    while(right_response == False):
+       print("Você deseja Jogar novamente ? Digite Sim ou Não")
 
-       
-       
+       response = input().lower()
+       if(response == "sim" or response == "não"):
+          right_response = True
+          if(response =="sim"):
+              is_running = True
+              was_game_won = False
+          else:
+              is_running = False
+       else:
+            print("Informação incorreta ! Digite novamente abaixo !")
+            right_response = False
+
 
