@@ -36,13 +36,36 @@ def place_character(char, x, y):
         position[x][y] = position[x][y][0] + char + position[x][y][2]
 
 
-def switch_turn():
+def switch_turn(player_turn,current_character,x,y):
 
       if(player_turn == 1):
+          place_character(player1_symbol, player1_x_position,
+                          player1_y_position)
           player_turn = 2
-      elif(player_turn==2):
+      else:
+          place_character(player2_symbol, player1_x_position,
+                          player1_y_position)
           player_turn = 1
 
+def check_victory():
+     #vitoria X
+    if(position[0][0][1] == "X" and position[0][1][2] == "X" and position[0][2][1] == "X"     # linha 1
+       or position[1][0][1] == "X" and position[1][1][2] == "X" and position[1][2][1] == "X"  # linha 2
+       or position[2][0][1] == "X" and position[2][1][2] == "X" and position[2][2][1] == "X"  # linha 3
+       or position[0][0][1] == "X" and position[1][0][1] == "X" and position[2][0][1] == "X"  # coluna 1
+       or position[0][1][2] == "X" and position[1][1][2] == "X" and position[2][1][2] == "X"  # coluna 2
+       or position[0][2][1] == "X" and position[1][2][2] == "X" and position[2][2][1] == "X"):# coluna 3
+        print("Jogador 1 ganhou")
+        was_game_won = True
+
+    elif(position[0][0][1] == "O" and position[0][1][2] == "O" and position[0][2][1] == "O"     # linha 1
+       or position[1][0][1] == "O" and position[1][1][2] == "O" and position[1][2][1] == "O"  # linha 2
+       or position[2][0][1] == "O" and position[2][1][2] == "O" and position[2][2][1] == "O"  # linha 3
+       or position[0][0][1] == "O" and position[1][0][1] == "O" and position[2][0][1] == "O"  # coluna 1
+       or position[0][1][2] == "O" and position[1][1][2] == "O" and position[2][1][2] == "O"  # coluna 2
+       or position[0][2][1] == "O" and position[1][2][2] == "O" and position[2][2][1] == "O"):# coluna 3
+          print("Jogador 1 ganhou")
+          was_game_won = True
 
 while(is_running):
 
@@ -71,7 +94,9 @@ while(is_running):
           place_character(player2_symbol, player1_x_position, player1_y_position)
           player_turn = 1
 
+       check_victory()
 
 
+       
        
 
