@@ -64,14 +64,18 @@ while(is_running):
        y_position = int(input()) - 1
 
        if(player_turn==1):
-           current_character = "X"
+           current_character = input_symbol
            place_character(current_character, x_position, y_position)
            was_game_won =  check_victory(current_character)
            if(was_game_won):
               print_table()
            player_turn = 2
        else:
-           current_character = "O"
+           if (input_symbol== 'X'):
+                current_character = 'O'
+           else:
+               current_character = 'X'
+               
            place_character(current_character, x_position, y_position)
            was_game_won =  check_victory(current_character)
            if(was_game_won):
